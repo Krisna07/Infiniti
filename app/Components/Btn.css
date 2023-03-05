@@ -1,0 +1,22 @@
+.btnContainer {
+  padding: 8px 16px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  line-height: 120%;
+  background-color: rgba(25, 26, 31, 0.904);
+}
+.btnIcon {
+  color: rgba(44, 64, 238, 0.616);
+  font-size: 16px;
+}
+.btnContainer:hover .btnIcon {
+  color: white;
+}
+.btntext:hover {
+  color: rgba(44, 64, 238, 0.616);
+}
