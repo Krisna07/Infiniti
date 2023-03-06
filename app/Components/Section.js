@@ -2,6 +2,7 @@ import React from "react";
 import { FaPlay } from "react-icons/fa";
 import Button from "./Button";
 import "./Section.css";
+import Curosal from "./SectionComponents/Curosal";
 
 const Section = () => {
   return (
@@ -22,7 +23,9 @@ const Section = () => {
           </div>
         </div>
       </div>
-      <div className="rightSide"></div>
+      <div className="rightSide">
+        <Curosal />
+      </div>
     </div>
   );
 };
