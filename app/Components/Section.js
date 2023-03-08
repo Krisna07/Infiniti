@@ -19,7 +19,7 @@ const Section = () => {
       image:
         "https://media.istockphoto.com/id/1322277517/photo/wild-grass-in-the-mountains-at-sunset.jpg?s=612x612&w=0&k=20&c=6mItwwFFGqKNKEAzv0mv6TaxhLN3zSE43bWmFN--J5w=",
       rightSide: {
-        title: "The Warrior",
+        title: "The Zone",
 
         subHeading: "A specific collection",
         des: "A quick brown fox jump over the lazy dog",
@@ -29,7 +29,7 @@ const Section = () => {
       image:
         "https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg",
       rightSide: {
-        title: "The Warrior",
+        title: "The Atlantis",
 
         subHeading: "A specific collection",
         des: "A quick brown fox jump over the lazy dog",
