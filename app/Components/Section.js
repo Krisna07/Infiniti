@@ -1,6 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FaArrowLeft, FaArrowRight, FaPlay } from "react-icons/fa";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaChevronDown,
+  FaPlay,
+} from "react-icons/fa";
 import Button from "./Button";
 import "./Section.css";
 import { AnimatePresence, motion } from "framer-motion";
@@ -9,12 +14,13 @@ const Section = () => {
   const curosalItems = [
     {
       image:
-        "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
+        "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg ",
       rightSide: {
         title: "The Warrior",
 
         subHeading: "A specific collection",
-        des: "A quick brown fox jump over the lazy dog. This dog then made up his mind to jump over that lousy fox in no time.",
+        button: <Button icons={<FaChevronDown />} text={"Read more"} />,
+        des: "A quick brown fox jump over the lazy dog. This dog then made up his mind to jump over that lousy fox in no time. Lorem do thsera is a thiq useuak dhunrrba  quisquam eos voluptatum minima quos explicabo bbuagr akjcbhema hbs",
       },
     },
     {
@@ -23,8 +29,9 @@ const Section = () => {
       rightSide: {
         title: "The Zone",
 
-        subHeading: "A specific collection",
-        des: "In this example, the curosal-des-animate class is added to the curosal-des element when the slide state changes. This class applies a transition property to the opacity CSS property, which causes the text element to fade in and out smoothly. The setTimeout function is used to remove the class after 1 second, which triggers the animation when the des text changes.",
+        subHeading: "A lunch to the space",
+        button: <Button icons={<FaChevronDown />} text={"Read more"} />,
+        des: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ut distinctio itaque, id praesentium provident vero quisquam eos voluptatum minima quos explicabo veniam corrupti! Deserunt voluptatum voluptate impedit reiciendis odit?",
       },
     },
     {
@@ -33,12 +40,14 @@ const Section = () => {
       rightSide: {
         title: "The Atlantis",
 
-        subHeading: "A specific collection",
-        des: "A quick brown fox jump over the lazy dog",
+        subHeading: "Lorem us toe",
+        button: <Button icons={<FaChevronDown />} text={"Read more"} />,
+        des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, ipsum minima. Quidem, sequi! Impedit omnis iusto, laudantium molestias dolores qui!",
       },
     },
   ];
   // console.log(curosalItems);
+
   const [slide, setSlide] = useState(0);
   const [direction, setDirection] = useState(false);
 
@@ -78,43 +87,54 @@ const Section = () => {
               <div className="imageContainer">
                 <motion.img
                   key={curosalItems[slide].image}
-                  initial={{ x: "-100%", opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: "-100%" }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ x: "-100%", opacity: 0, rotate: "45deg" }}
+                  animate={{ x: 0, opacity: 1, rotate: "0" }}
+                  // exit={{ x: "-100%", opacity: "0", rotate: "-45deg" }}
+                  transition={{ duration: 0.5, type: "spring" }}
                   src={curosalItems[slide].image}
                   alt={curosalItems[slide].image}
                   width={"100%"}
                   style={{ objectFit: "cover", height: "100%" }}
                 />
               </div>
-            </AnimatePresence>
 
-            <div className="curosal-des">
-              <AnimatePresence wait>
+              <div className="curosal-des">
                 <motion.h2
                   className="curosal-des-heading"
                   key={curosalItems[slide].rightSide.title}
-                  initial={{ x: "100%", opacity: 0 }}
+                  initial={{ x: "40%", opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: "100%" }}
-                  // transition={{ duration: 1 }}
+                  transition={{ duration: 0.4, type: "spring" }}
                 >
                   {curosalItems[slide].rightSide.title}
                 </motion.h2>
-                <h3>{curosalItems[slide].rightSide.subHeading}</h3>
+                <motion.h3
+                  key={curosalItems[slide].rightSide.subHeading}
+                  initial={{ y: "-50%" }}
+                  animate={{ y: 0 }}
+                  exit={{ x: "100%" }}
+                  transition={{ duration: 0.4, type: "spring" }}
+                >
+                  {curosalItems[slide].rightSide.subHeading}
+                </motion.h3>
                 <span>{curosalItems[slide].rightSide.des}</span>
-              </AnimatePresence>
-            </div>
+                <span>{curosalItems[slide].rightSide.button}</span>
+              </div>
+            </AnimatePresence>
           </div>
           <div className="curosalControls">
-            <FaArrowLeft
-              onClick={() => {
+            <Button
+              icons={<FaArrowLeft />}
+              onclickHandler={() => {
                 sliderControl(-1);
                 setDirection(!direction);
               }}
             />
-            <FaArrowRight onClick={() => sliderControl(+1)} />
+            <Button
+              icons={<FaArrowRight />}
+              onclickHandler={() => sliderControl(+1)}
+            />
           </div>
         </div>
       </div>
