@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./Collection.css";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { FaChevronDown, FaChevronRight, FaChevronUp } from "react-icons/fa";
 import axios from "axios";
 import Button from "../Button";
 
@@ -30,8 +30,8 @@ const Collection = () => {
   // }
   const [chain, setChain] = useState("Ethereum");
   const [volume, setVolume] = useState(10);
-  const loadMore = () => {
-    setVolume(volume + 10);
+  const loadMore = (num: String) => {
+    setVolume(volume + num);
   };
   console.log(volume);
   useEffect(() => {
@@ -41,7 +41,7 @@ const Collection = () => {
           method: "GET",
           url: "https://api.nftport.xyz/v0/contracts/top",
           params: {
-            page_size: volume,
+            page_size: volume < 10 ? volume : 10,
             page_number: "1",
             period: "24h",
             order_by: "volume",
@@ -61,7 +61,7 @@ const Collection = () => {
     }
 
     fetchNfts();
-  }, [chain, loadMore]);
+  }, [chain, volume]);
   const [select, setSelect] = useState();
 
   return (
@@ -135,9 +135,14 @@ const Collection = () => {
               ))
             : ""}
           <Button
-            text={"More"}
+            text={"Load more"}
             icons={<FaChevronRight />}
-            onclickHandler={loadMore}
+            onclickHandler={() => loadMore(10)}
+          />
+          <Button
+            text={"Show Less"}
+            icons={<FaChevronUp />}
+            onclickHandler={() => loadMore(-10)}
           />
         </ul>
       </div>
