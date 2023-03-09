@@ -46,7 +46,6 @@ const Section = () => {
       },
     },
   ];
-  // console.log(curosalItems);
 
   const [slide, setSlide] = useState(0);
   const [direction, setDirection] = useState(false);
