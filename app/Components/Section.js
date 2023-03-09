@@ -98,7 +98,7 @@ const Section = () => {
                   initial={{ x: "100%", opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: "100%" }}
-                  transition={{ duration: 1 }}
+                  // transition={{ duration: 1 }}
                 >
                   {curosalItems[slide].rightSide.title}
                 </motion.h2>
