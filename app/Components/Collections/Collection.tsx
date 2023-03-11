@@ -6,6 +6,8 @@ import { FaChevronDown, FaChevronRight, FaChevronUp } from "react-icons/fa";
 import axios from "axios";
 import Button from "../Button";
 import Image from "next/image";
+import { Grid, GridItem } from "@chakra-ui/react";
+import CollectionCard from "./CollectionCard";
 
 const Collection = () => {
   const [nfts, setNfts] = useState(null);
@@ -16,6 +18,7 @@ const Collection = () => {
     setVolume(volume + num);
   };
   console.log(volume);
+  const [owned, setowned] = useState();
   useEffect(() => {
     async function fetchNfts() {
       try {
@@ -44,6 +47,7 @@ const Collection = () => {
     fetchNfts();
   }, [chain, volume]);
   const [select, setSelect] = useState(true);
+  console.log(nfts);
 
   return (
     <div className="sectionContainer">
@@ -91,37 +95,18 @@ const Collection = () => {
         </div>
       </div>
       <ul className="collectionList">
-        {nfts
-          ? nfts.map((nft: any, x: React.Key | null | undefined) => (
-              <li className="collectionItems" key={x}>
-                <span
-                  className="nftImage"
-                  style={{
-                    backgroundImage: `url(${nft.metadata.thumbnail_url})`,
-                  }}
-                >
-                  {/* <Image
-                      src={nft.metadata.thumbnail_url}
-                      alt="nft.chain"
-                      width={100}
-                      height={100}
-                    /> */}
-                </span>
-                <div className="desContainer">
-                  {" "}
-                  <span className="nftTitle">
-                    {nft.name ? nft.name : "polygon nft"}
-                  </span>
-                  {/* <span className="nftdescription">
-                      {nft.metadata.description}
-                    </span> */}
-                </div>
-              </li>
-            ))
-          : ""}
+        <CollectionCard
+          imageUrl={
+            "(https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg)"
+          }
+          title={"A Rocket Box"}
+          collectionCount={"45"}
+        />
+      </ul>
+      <div className="loadingActions">
         <Button
           text={"Load more"}
-          icons={<FaChevronRight />}
+          icons={<FaChevronDown />}
           onclickHandler={() => loadMore(10)}
         />
         <Button
@@ -129,7 +114,7 @@ const Collection = () => {
           icons={<FaChevronUp />}
           onclickHandler={() => loadMore(-10)}
         />
-      </ul>
+      </div>
     </div>
   );
 };

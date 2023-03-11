@@ -8,10 +8,10 @@
   justify-content: space-between;
   gap: 1rem;
   line-height: 120%;
-  background-color: rgba(25, 26, 31, 0.904);
+  background-color: rgba(93, 16, 100, 0.801);
 }
 .btnIcon {
-  color: rgba(38, 50, 155, 0.616);
+  color: rgba(75, 91, 236, 0.767);
   font-size: 16px;
 }
 .btnContainer:hover .btnIcon {
