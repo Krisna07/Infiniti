@@ -8,6 +8,7 @@
   gap: 1rem;
   /* background-color: rgb(34, 29, 29); */
   position: relative;
+  box-sizing: border-box;
   /* background-color: rgb(39, 27, 13); */
   /* z-index: -1; */
 }
@@ -82,4 +83,4 @@
     transform: translateY(0);
     opacity: 1;
   }
-} */ ;
+} */
