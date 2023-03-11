@@ -1,8 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Collection.css";
-import { AnimatePresence, motion } from "framer-motion";
-import { FaChevronDown, FaChevronRight, FaChevronUp } from "react-icons/fa";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
+import {
+  FaChevronDown,
+  FaChevronLeft,
+  FaChevronRight,
+  FaChevronUp,
+} from "react-icons/fa";
 import axios from "axios";
 import Button from "../Button";
 import Image from "next/image";
@@ -48,6 +53,25 @@ const Collection = () => {
   }, [chain, volume]);
   const [select, setSelect] = useState(true);
   console.log(nfts);
+  const [slider, setSlider] = useState(0);
+  const [sliderWidth, setSliderWith] = useState();
+  const collectionContainerRef = useRef(null);
+  useEffect(() => {
+    if (collectionContainerRef.current) {
+      const containerWidth = collectionContainerRef.current.offsetWidth;
+      const containerScrollWidth = containerRef.current.scrollWidth;
+      return setSliderWith(containerWidth);
+    }
+  }, []);
+
+  const slideLeft = () => {
+    slider > 0 ? setSlider(slider - 1) : setSlider(0);
+    console.log(slider * 100);
+  };
+  const slideRight = () => {
+    slider > sliderWidth ? setSlider(sliderWidth) : setSlider(slider + 1);
+    console.log(slider * 100);
+  };
 
   return (
     <div className="sectionContainer">
@@ -57,16 +81,25 @@ const Collection = () => {
           <div className="selectChain">
             <span className="selectedChain">
               {chain}
-              <FaChevronDown onClick={() => setSelect(!select)} />
+
+              <FaChevronDown
+                onClick={() => setSelect(!select)}
+                style={{
+                  transform: `${!select ? "rotate(180deg)" : "rotate(0deg)"}`,
+                  transition: "transform ease-in-out 200ms",
+                }}
+              />
             </span>
             <motion.ul
               key={"chain"}
               className="chainType"
-              initial={{ y: select ? "-100%" : "" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-100%" }}
+              initial={{ y: "-50%", opacity: "0" }}
+              animate={
+                !select ? { y: 0, opacity: 1 } : { y: "-50%", opacity: "0" }
+              }
+              exit={{ y: "-50%", opacity: "0" }}
               transition={{ ease: "easeInOut" }}
-              style={{ display: !select ? "" : "none" }}
+              style={{ display: !select ? "block" : "none" }}
             >
               <li
                 className="chainOption"
@@ -95,13 +128,29 @@ const Collection = () => {
         </div>
       </div>
       <ul className="collectionList">
-        <CollectionCard
-          imageUrl={
-            "(https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg)"
-          }
-          title={"A Rocket Box"}
-          collectionCount={"45"}
-        />
+        <div className="sliderControls">
+          <FaChevronLeft
+            onClick={slideLeft}
+            style={slider == 0 ? { opacity: "0" } : { opacity: 1 }}
+          />
+          <FaChevronRight onClick={slideRight} />
+        </div>
+        <div
+          className="collectionListContainer"
+          style={{ left: `-${slider * 100}px` }}
+          ref={collectionContainerRef}
+        >
+          {new Array(10).fill(1).map((item, key) => (
+            <CollectionCard
+              key={key}
+              imageUrl={
+                "(https://1.bp.blogspot.com/-kK7Fxm7U9o0/YN0bSIwSLvI/AAAAAAAACFk/aF4EI7XU_ashruTzTIpifBfNzb4thUivACLcBGAsYHQ/s1280/222.jpg)"
+              }
+              title={"A Rocket Box"}
+              collectionCount={"45"}
+            />
+          ))}
+        </div>
       </ul>
       <div className="loadingActions">
         <Button
