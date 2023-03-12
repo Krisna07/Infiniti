@@ -60,7 +60,7 @@
   /* padding: rem 0; */
   /* background-color: azure; */
 }
-.collectionList {
+.collections {
   width: 100%;
   box-sizing: border-box;
   display: flex;
@@ -75,9 +75,9 @@
 
   /* padding: 1rem; */
 }
-.collectionListContainer {
+.collectionContainer {
   display: flex;
-  gap: 1rem;
+  gap: 10px;
   position: relative;
   transition: all ease-in-out 300ms;
 }
@@ -85,7 +85,7 @@
 .sliderControls {
   width: 100%;
   display: flex;
-  position: relative;
+  position: absolute;
   z-index: 99;
   font-size: 40px;
   color: blue;
@@ -223,4 +223,9 @@
   position: absolute;
   transition: bottom ease-in-out 400ms;
   padding: 0 0 1rem 0;
+}
+.loadingActions {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
 }

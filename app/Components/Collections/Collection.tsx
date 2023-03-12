@@ -10,9 +10,9 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import Button from "../Button";
-import Image from "next/image";
-import { Grid, GridItem } from "@chakra-ui/react";
+
 import CollectionCard from "./CollectionCard";
+import CollectionList from "./CollectionList";
 
 const Collection = () => {
   const [nfts, setNfts] = useState(null);
@@ -22,7 +22,7 @@ const Collection = () => {
   const loadMore = (num: any) => {
     setVolume(volume + num);
   };
-  console.log(volume);
+  // console.log(volume);
   const [owned, setowned] = useState();
   useEffect(() => {
     async function fetchNfts() {
@@ -52,27 +52,41 @@ const Collection = () => {
     fetchNfts();
   }, [chain, volume]);
   const [select, setSelect] = useState(true);
-  console.log(nfts);
+  const [sliderLength, setSliderLength] = useState(12);
+  // console.log(nfts);
   const [slider, setSlider] = useState(0);
-  const [sliderWidth, setSliderWith] = useState();
+  const [sliderWidth, setSliderWith] = useState(0);
   const collectionContainerRef = useRef(null);
+  const [slideOffset, setSlideOffset] = useState(0);
   useEffect(() => {
     if (collectionContainerRef.current) {
       const containerWidth = collectionContainerRef.current.offsetWidth;
-      const containerScrollWidth = containerRef.current.scrollWidth;
-      return setSliderWith(containerWidth);
+      console.log(collectionContainerRef.current.scrollWidth);
+
+      setSliderWith(containerWidth);
+
+      setSlideOffset(containerWidth / sliderLength);
     }
-  }, []);
+  }, [sliderLength]);
+  // console.log(sliderWidth);
 
   const slideLeft = () => {
-    slider > 0 ? setSlider(slider - 1) : setSlider(0);
-    console.log(slider * 100);
-  };
-  const slideRight = () => {
-    slider > sliderWidth ? setSlider(sliderWidth) : setSlider(slider + 1);
-    console.log(slider * 100);
+    if (slider > 0) {
+      setSlider(slider - slideOffset - 10);
+    }
+    // console.log(slider);
   };
 
+  const slideRight = () => {
+    if (slider < sliderWidth) {
+      setSlider(slider + slideOffset + 10);
+    }
+    // console.log(slider);
+  };
+  const [list, setList] = useState(false);
+  const handleList = () => {
+    setList(!list);
+  };
   return (
     <div className="sectionContainer">
       <div className="headingContainer" style={{ width: "100%" }}>
@@ -127,7 +141,7 @@ const Collection = () => {
           </div>
         </div>
       </div>
-      <ul className="collectionList">
+      <ul className="collections">
         <div className="sliderControls">
           <FaChevronLeft
             onClick={slideLeft}
@@ -136,11 +150,11 @@ const Collection = () => {
           <FaChevronRight onClick={slideRight} />
         </div>
         <div
-          className="collectionListContainer"
-          style={{ left: `-${slider * 100}px` }}
+          className="collectionContainer"
+          style={{ left: `-${slider}px` }}
           ref={collectionContainerRef}
         >
-          {new Array(10).fill(1).map((item, key) => (
+          {new Array(sliderLength).fill(1).map((item, key) => (
             <CollectionCard
               key={key}
               imageUrl={
@@ -148,6 +162,7 @@ const Collection = () => {
               }
               title={"A Rocket Box"}
               collectionCount={"45"}
+              browseList={handleList}
             />
           ))}
         </div>
@@ -164,6 +179,7 @@ const Collection = () => {
           onclickHandler={() => loadMore(-10)}
         />
       </div>
+      {list ? <CollectionList handleList={handleList} /> : ""}
     </div>
   );
 };

@@ -7,12 +7,14 @@ interface CollectionItems {
   imageUrl: string;
   title: string;
   collectionCount: string;
+  browseList: any;
 }
 
 const CollectionCard = ({
   imageUrl,
   title,
   collectionCount,
+  browseList,
 }: CollectionItems) => {
   const [browserBtn, showBrowseBtn] = useState(false);
 
@@ -69,7 +71,11 @@ const CollectionCard = ({
           }
           exit={{ y: "-100%", opacity: 0 }}
         >
-          <Button text={"Browse"} icons={<BsStars />} />
+          <Button
+            text={"Browse"}
+            icons={<BsStars />}
+            onclickHandler={browseList}
+          />
         </motion.span>
       </AnimatePresence>
     </div>
