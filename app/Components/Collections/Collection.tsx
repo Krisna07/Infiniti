@@ -13,6 +13,7 @@ import Button from "../Button";
 
 import CollectionCard from "./CollectionCard";
 import CollectionList from "./CollectionList";
+import TopSelling from "./TopSelling";
 
 const Collection = () => {
   const [nfts, setNfts] = useState(null);
@@ -180,6 +181,7 @@ const Collection = () => {
         />
       </div>
       {list ? <CollectionList handleList={handleList} /> : ""}
+      <TopSelling />
     </div>
   );
 };
